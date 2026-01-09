@@ -2536,11 +2536,15 @@ function formatDateManual(isoString) {
   return `${month} ${day}, ${year}`;
 }
 async function hanldeU1firmware() {
-    const res = await ajax({
-        method: 'GET',
-        url: 'https://ditfjx9w4x3vl.cloudfront.net/assets/support/u1-firmware-en.json'
-    });
-    console(`firmware: ${res}`)
+    // const res = await ajax({
+    //     method: 'GET',
+    //     url: 'https://ditfjx9w4x3vl.cloudfront.net/assets/support/u1-firmware-en.json'
+    // });
+    const res = {
+        "updated_date": "20251231",
+        "version": "V1.0.0",
+        "download_link": "https://public.resource.snapmaker.com/firmware/U1/U1_1.0.0.158_20251230140122_upgrade.bin"
+    }
     const { download_link: downloadLink, updated_date: updatedDate, version: version } = res
     return handleDownloadFile({
             title: 'Firmware',
@@ -2560,11 +2564,16 @@ async function hanldeU1firmware() {
         })
 }
 async function handleApp() {
-    const res = await ajax({
-        method: 'GET',
-        url: 'https://ditfjx9w4x3vl.cloudfront.net/assets/support/snapmaker-app-en.json'
-    });
-    console(`firmware: ${res}`)
+    // const res = await ajax({
+    //     method: 'GET',
+    //     url: 'https://ditfjx9w4x3vl.cloudfront.net/assets/support/snapmaker-app-en.json'
+    // });
+    const res = {
+        "updated_date": "20251231",
+        "version": "V2.2.1",
+        "android_download_link": "https://play.google.com/store/apps/details?id=com.snapmaker.lavaapp",
+        "ios_download_link": "https://apps.apple.com/us/app/snapmaker/id6670739251"
+    }
     const { android_download_link: androidDownloadLink, ios_download_link: iosDownloadLink, updated_date: updatedDate, version: version } = res
     return handleMultiBtn({
             title: 'App',
