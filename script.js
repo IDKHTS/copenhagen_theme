@@ -1442,48 +1442,10 @@ async function handleSectionResource(id, locale) {
     let U1Software = null;
     let U1App = null
     if(id == '36087874981527') {
-        U1Firmware = handleDownloadFile({
-            title: 'Firmware',
-            time: 'Dec 15, 2025',
-            download_link: 'https://public.resource.snapmaker.com/firmware/U1/U1_0.9.4.22_20251215023106_upgrade.bin',
-            text: "Download Firmware V0.9.4",
-            description: [
-                {
-                    "text": "For release notes and historical downloads, see our ",
-                    "link": ""
-                },
-                {
-                    "text": " Wiki Release Notes.",
-                    "link": "https://wiki.snapmaker.com/en/snapmaker_u1/firmware/release_notes"
-                }
-            ]
-        })
+        U1Firmware = await hanldeU1firmware()
         fileResourceContainer.replaceChild(U1Firmware, placeholderFirmware);
 
-        U1App = handleMultiBtn({
-            title: 'App',
-            time: 'Nov 06, 2025',
-            description: [
-                {
-                    "text": "For release notes, see our ",
-                    "link": ""
-                },
-                {
-                    "text": " Wiki Release Notes.",
-                    "link": "https://wiki.snapmaker.com/en/snapmaker_app/release_notes"
-                }
-            ],
-            btn: [
-                {
-                    link: 'https://apps.apple.com/app/Snapmaker/id6670739251?mt=12 ',
-                    text: "iOS"
-                },
-                {
-                    link: 'https://play.google.com/store/apps/details?id=com.snapmaker.lavaapp',
-                    text: "Android"
-                }
-            ]
-        })
+        U1App = await handleApp()
         fileResourceContainer.replaceChild(U1App, placeholderApp);
         
         U1Software = await handleOrcaSoftware()
@@ -2552,4 +2514,80 @@ async function handleOrcaSoftware() {
     });
 
     return handleSelectDownload(templateData); 
+}
+
+function formatDateManual(isoString) {
+  let date
+  if (typeof isoString === 'string' && isoString.length === 8) {
+    const year = isoString.slice(0, 4)
+    const month = isoString.slice(4, 6)
+    const day = isoString.slice(6, 8)
+    date = new Date(`${year}-${month}-${day}`)
+  } else {
+    date = new Date(isoString)
+  }
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const month = months[date.getUTCMonth()];
+  const day = date.getUTCDate().toString().padStart(2, '0');
+  const year = date.getUTCFullYear();
+
+  return `${month} ${day}, ${year}`;
+}
+async function hanldeU1firmware() {
+    const res = await ajax({
+        method: 'GET',
+        url: 'https://ditfjx9w4x3vl.cloudfront.net/assets/support/u1-firmware-en.json'
+    });
+    console(`firmware: ${res}`)
+    const { download_link: downloadLink, updated_date: updatedDate, version: version } = res
+    return handleDownloadFile({
+            title: 'Firmware',
+            time: formatDateManual(updatedDate),
+            download_link: downloadLink,
+            text: `Download Firmware ${version}`,
+            description: [
+                {
+                    "text": "For release notes and historical downloads, see our ",
+                    "link": ""
+                },
+                {
+                    "text": " Wiki Release Notes.",
+                    "link": "https://wiki.snapmaker.com/en/snapmaker_u1/firmware/release_notes"
+                }
+            ]
+        })
+}
+async function handleApp() {
+    const res = await ajax({
+        method: 'GET',
+        url: 'https://ditfjx9w4x3vl.cloudfront.net/assets/support/snapmaker-app-en.json'
+    });
+    console(`firmware: ${res}`)
+    const { android_download_link: androidDownloadLink, ios_download_link: iosDownloadLink, updated_date: updatedDate, version: version } = res
+    return handleMultiBtn({
+            title: 'App',
+            time: formatDateManual(updatedDate),
+            description: [
+                {
+                    "text": "For release notes, see our ",
+                    "link": ""
+                },
+                {
+                    "text": " Wiki Release Notes.",
+                    "link": "https://wiki.snapmaker.com/en/snapmaker_app/release_notes"
+                }
+            ],
+            btn: [
+                {
+                    link: iosDownloadLink,
+                    text: "iOS"
+                },
+                {
+                    link: androidDownloadLink,
+                    text: "Android"
+                }
+            ]
+        })
 }

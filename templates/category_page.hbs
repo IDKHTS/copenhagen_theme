@@ -127,6 +127,7 @@
           </div>
           <div class="category-section-content wiki-wrapper section-title-collection" aria-expanded="true">
             <a class="wiki-block" href="https://wiki.snapmaker.com/en/FAQ/u1" src="{{asset 'book-icon.svg'}}" target="_blank">
+              <img class="wiki-block-icon" src="{{asset 'u1.jpg'}}" alt="FAQs" />
               <img class="wiki-block-icon" src="{{asset 'gi.svg'}}" alt="FAQs" />
               <div class="wiki-block-title">FAQs</div>
             </a>  
@@ -180,7 +181,7 @@
                     {{/each}}
                 </ul>
                 {{#if more_articles}}
-                    <a href="{{url}}" class="snmk-btn">
+                    <a href="{{url}}" class="snmk-btn see-more-article">
                         {{t 'show_all_articles' count=article_count}}
                     </a>
                 {{/if}}
@@ -385,7 +386,7 @@
                     {{/each}}
                   </ul>
                   {{#if more_articles}}
-                      <a href="{{url}}" class="snmk-btn">
+                      <a href="{{url}}" class="snmk-btn see-more-article">
                           {{t 'show_all_articles' count=article_count}}
                       </a>
                   {{/if}}
@@ -428,7 +429,7 @@
                     {{/each}}
                   </ul>
                   {{#if more_articles}}
-                      <a href="{{url}}" class="snmk-btn">
+                      <a href="{{url}}" class="snmk-btn see-more-article">
                           {{t 'show_all_articles' count=article_count}}
                       </a>
                   {{/if}}
@@ -471,7 +472,7 @@
                     {{/each}}
                   </ul>
                   {{#if more_articles}}
-                      <a href="{{url}}" class="snmk-btn">
+                      <a href="{{url}}"  class="snmk-btn see-more-article">
                           {{t 'show_all_articles' count=article_count}}
                       </a>
                   {{/if}}
