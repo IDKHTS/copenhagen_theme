@@ -2541,9 +2541,9 @@ async function hanldeU1firmware() {
     //     url: 'https://ditfjx9w4x3vl.cloudfront.net/assets/support/u1-firmware-en.json'
     // });
     const res = {
-        "updated_date": "20251231",
-        "version": "V1.0.0",
-        "download_link": "https://public.resource.snapmaker.com/firmware/U1/U1_1.0.0.158_20251230140122_upgrade.bin"
+        "updated_date": "20260209",
+        "version": "V1.1.1",
+        "download_link": "https://public.resource.snapmaker.com/firmware/U1/U1_1.1.1.122_20260207021740_upgrade.bin"
     }
     const { download_link: downloadLink, updated_date: updatedDate, version: version } = res
     return handleDownloadFile({
@@ -2569,8 +2569,8 @@ async function handleApp() {
     //     url: 'https://ditfjx9w4x3vl.cloudfront.net/assets/support/snapmaker-app-en.json'
     // });
     const res = {
-        "updated_date": "20251231",
-        "version": "V2.2.1",
+        "updated_date": "20260209",
+        "version": "V2.2.3",
         "android_download_link": "https://play.google.com/store/apps/details?id=com.snapmaker.lavaapp",
         "ios_download_link": "https://apps.apple.com/us/app/snapmaker/id6670739251"
     }
