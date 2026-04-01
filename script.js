@@ -1452,11 +1452,21 @@ async function handleSectionResource(id, locale) {
         } catch (e) {
             console.warn('Failed to fetch remote U1 firmware config:', e);
         }
-
-        const fwVersion = u1FirmwareConfig ? u1FirmwareConfig.version : 'V0.9.4';
-        const fwLink = u1FirmwareConfig ? u1FirmwareConfig.download_link : 'https://public.resource.snapmaker.com/firmware/U1/U1_0.9.4.22_20251215023106_upgrade.bin';
-        const fwTime = u1FirmwareConfig && u1FirmwareConfig.updated_date
-            ? formatDate(u1FirmwareConfig.updated_date)
+        
+        let fwData = u1FirmwareConfig;
+        if (!fwData && window.U1_RESOURCES) {
+            let dcData = window.U1_RESOURCES;
+            if (typeof dcData === 'string') {
+                try {
+                    dcData = JSON.parse(dcData);
+                } catch (e) {}
+            }
+            fwData = dcData && (dcData.firmware || dcData);
+        }
+        const fwVersion = fwData && fwData.version ? fwData.version : 'V0.9.41';
+        const fwLink = fwData && fwData.download_link ? fwData.download_link : 'https://public.resource.snapmaker.com/firmware/U1/U1_0.9.4.22_20251215023106_upgrade.bin';
+        const fwTime = fwData && fwData.updated_date
+            ? formatDate(fwData.updated_date)
             : 'Dec 15, 2025';
 
         U1Firmware = handleDownloadFile({
@@ -1477,9 +1487,10 @@ async function handleSectionResource(id, locale) {
         })
         fileResourceContainer.replaceChild(U1Firmware, placeholderFirmware);
 
+        const appTime = window.U1_RESOURCES && window.U1_RESOURCES.app_updated_date ? formatDate(window.U1_RESOURCES.app_updated_date) : 'Nov 06, 2025' 
         U1App = handleMultiBtn({
             title: 'App',
-            time: 'Nov 06, 2025',
+            time: appTime,
             description: [
                 {
                     "text": "For release notes, see our ",

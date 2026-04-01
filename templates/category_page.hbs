@@ -44,6 +44,13 @@
       {{/each}}
     ]
     const locale = '{{help_center.locale}}'
+    let U1_RESOURCES
+    try {
+        U1_RESOURCES = {{dc "u1_resources" }}
+    } catch (error) {
+        console.log(error)
+    }
+    window.U1_RESOURCES = U1_RESOURCES        
     window.addEventListener('DOMContentLoaded', function () {
         setTimeout(()=>handleSectionResource('{{category.id}}', '{{help_center.locale}}'))
     })
